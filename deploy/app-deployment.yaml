@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-app
+  namespace: default
+  labels:
+    app: hello-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-app
+  template:
+    metadata:
+      labels:
+        app: hello-app
+    spec:
+      hostNetwork: true
+      containers:
+      - name: hello-app
+        image: shri4u/hello-flask:rc1
+        imagePullPolicy: Always
+        command: ["python"]
+        args:
+        - "/gitsecure-app/app.py"
+        ports:
+           - containerPort: 5000
